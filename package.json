@@ -1,0 +1,7 @@
+{
+  "name": "5chollostech",
+  "private": true,
+  "type": "module",
+  "scripts": { "carrusel": "node plantilla/render_carrusel.mjs" },
+  "dependencies": { "@napi-rs/canvas": "^0.1.65" }
+}
