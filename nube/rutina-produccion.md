@@ -17,6 +17,8 @@ Ray delegó en Claude las decisiones de contenido (20/10/2026). Lee antes `CLAUD
 Desde la nube de Claude, Amazon bloquea las consultas. Por eso se usa `mcp__Composio__COMPOSIO_REMOTE_WORKBENCH` (cárgalo con ToolSearch "composio", después de un `COMPOSIO_SEARCH_TOOLS` con `session: {generate_id: true}`).
 1. En la primera celda, **pega el contenido completo** de `nube/amazon_workbench.py`, que lees de tu copia del repo. Desde el workbench, raw.githubusercontent devuelve 404.
 2. Saca entre 15 y 30 candidatos con `mas_vendidos(nodo, 2)` o `buscar(q)`, según `categorias.md`. **El precio se toma de esas listas**: la ficha individual no lo muestra.
+   **Importante:** cada llamada al workbench se corta a los **60 s**. Lanza el trabajo en un hilo (`threading.Thread(target=..., daemon=True).start()`) que guarde los resultados en un diccionario global, y recógelos en la siguiente llamada.
+   - **Antes de elegir,** haz la lista de los ASIN de todos los `episodios/*.json` (de cualquier estado) y descártalos.
 3. Pide `ficha(asin)` de los 8-10 mejores candidatos. Hazlo de uno en uno, porque el lector ya mete pausas, y en celdas de máximo 4 fichas por el límite de 180 s.
 4. **Reglas para entrar en el Top 5:**
    - `vendido_por_amazon` es true (o al menos `enviado_por_amazon`);
