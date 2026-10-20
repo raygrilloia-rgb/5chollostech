@@ -67,3 +67,25 @@ export async function cargarFoto(ruta, { recortar = true, transparente = false }
   out.getContext('2d').drawImage(img, x0, y0, w, h, 0, 0, w, h);
   return out;
 }
+
+// ---------- entorno: igual en el PC de Ray (Windows) y en la nube (Linux) ----------
+import { GlobalFonts } from '@napi-rs/canvas';
+import { createRequire } from 'node:module';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const RAIZ_UTIL = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+// Fuentes libres (OFL) guardadas en fuentes/: así las slides salen idénticas en cualquier máquina.
+// ABK = titulares (Archivo Black), SB = texto (Lato Bold).
+export function registrarFuentes() {
+  GlobalFonts.registerFromPath(path.join(RAIZ_UTIL, 'fuentes', 'ArchivoBlack-Regular.ttf'), 'ABK');
+  GlobalFonts.registerFromPath(path.join(RAIZ_UTIL, 'fuentes', 'Lato-Bold.ttf'), 'SB');
+  GlobalFonts.registerFromPath(path.join(RAIZ_UTIL, 'fuentes', 'Lato-Black.ttf'), 'SBL');
+}
+
+// ffmpeg: el de la variable FFMPEG si existe; si no, el de ffmpeg-static (trae libx264).
+export function ffmpeg() {
+  if (process.env.FFMPEG) return process.env.FFMPEG;
+  return createRequire(import.meta.url)('ffmpeg-static');
+}
+export const CODEC_VIDEO = ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-maxrate', '4000k', '-bufsize', '8000k', '-pix_fmt', 'yuv420p', '-profile:v', 'high'];

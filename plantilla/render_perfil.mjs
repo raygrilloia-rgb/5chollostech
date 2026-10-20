@@ -4,9 +4,10 @@ import { createCanvas, GlobalFonts } from '@napi-rs/canvas';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { registrarFuentes } from './util.mjs';
+registrarFuentes();
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-GlobalFonts.registerFromPath('C:/Windows/Fonts/ariblk.ttf', 'ABK');
 const T = 1080, cv = createCanvas(T, T), ctx = cv.getContext('2d'), c = T / 2;
 
 // fondo azul marca con brillo naranja

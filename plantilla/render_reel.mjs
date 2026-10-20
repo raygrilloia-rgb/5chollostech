@@ -10,15 +10,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 import { cargarFoto } from './util.mjs';
+import { registrarFuentes, ffmpeg, CODEC_VIDEO } from './util.mjs';
+registrarFuentes();
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const FF = 'C:/Users/JOSE/AppData/Local/CapCut/Apps/9.5.0.4050/ffmpeg.exe';
+const FF = ffmpeg();
 const W = 1080, H = 1920, FPS = 30;
 const C = { fondo1: '#0A0F24', fondo2: '#161E45', naranja: '#FF6A00', amarillo: '#FFC93C', blanco: '#FFFFFF', texto: '#D9DEFA', gris: '#8C93B8' };
 const VOZ = { nombre: 'es-ES-AlvaroNeural', rate: '+18%', pitch: '+3Hz' };
 
-GlobalFonts.registerFromPath('C:/Windows/Fonts/ariblk.ttf', 'ABK');
-GlobalFonts.registerFromPath('C:/Windows/Fonts/segoeuib.ttf', 'SB');
 
 const args = process.argv.slice(2);
 const PREVIEW = args.includes('--preview');
@@ -308,7 +308,7 @@ const filtro = `[1:a]atrim=${inicioMusica}:${(inicioMusica + TOTAL).toFixed(2)},
 const ff = spawn(FF, ['-y', '-hide_banner', '-loglevel', 'error',
   '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${W}x${H}`, '-r', String(FPS), '-i', '-',
   '-i', musica, '-i', vozWav, '-filter_complex', filtro, '-map', '0:v', '-map', '[a]',
-  '-c:v', 'h264_mf', '-b:v', '3500k', '-pix_fmt', 'nv12', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
+  ...CODEC_VIDEO, '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
   '-t', TOTAL.toFixed(2), '-movflags', '+faststart', mp4], { stdio: ['pipe', 'inherit', 'inherit'] });
 const t0 = Date.now();
 for (let f = 0; f < NFRAMES; f++) {

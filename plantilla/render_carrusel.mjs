@@ -6,6 +6,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { cargarFoto } from './util.mjs';
+import { registrarFuentes } from './util.mjs';
+registrarFuentes();
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const W = 1080, H = 1350;
@@ -15,9 +17,6 @@ const C = {
 };
 const MARCA = '@5chollostech';
 
-GlobalFonts.registerFromPath('C:/Windows/Fonts/ariblk.ttf', 'ABK');
-GlobalFonts.registerFromPath('C:/Windows/Fonts/segoeuib.ttf', 'SB');
-GlobalFonts.registerFromPath('C:/Windows/Fonts/seguibl.ttf', 'SBL');
 
 const archivo = process.argv[2];
 if (!archivo) { console.error('Falta el JSON del episodio'); process.exit(1); }
