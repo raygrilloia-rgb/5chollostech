@@ -25,7 +25,8 @@
       "resenas": "28.429",
       "foto": "prototipo/fotos/5_redmi.jpg",
       "ajuste": "cover",
-      "foco": 0.62
+      "foco": 0.62,
+      "foto_reel": "fotos/redmi_buds6play_negro.png"
     },
     {
       "puesto": 4,
@@ -90,5 +91,19 @@
   },
   "caption": "5 chollos tech de Amazon por menos de 30€ que tienen MILES de reseñas 🔥\n\nNo son cosas random: los 5 están entre los más vendidos de Amazon España y todos superan las 4 estrellas.\n\n5️⃣ Xiaomi Redmi Buds 6 Play: auriculares de unos 10€ con hasta 36 h de batería\n4️⃣ INIU Power Bank 20.000 mAh: 45W y cable USB-C integrado\n3️⃣ Anker Nano II 65W: un cargador de bolsillo que carga hasta el portátil\n2️⃣ Sony WH-CH520: 50 h de batería y más de 61.000 reseñas\n1️⃣ Tapo C210: cámara WiFi 360º en 2K para vigilar casa, bebé o mascota\n\n¿Cuál te llevas? Comenta el número 👇\n💾 Guárdalo para tu próxima compra.\n\n🔗 Todos los enlaces en la bio.\n\nPrecios y reseñas consultados el 20/10/2026: pueden cambiar.\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#chollos #gadgets #tecnologia #amazonespaña #ofertas #chollostech",
   "publicado_utc": "2026-10-20T11:35:18Z",
-  "instagram": "https://www.instagram.com/p/DetvPEulXXN/"
+  "instagram": "https://www.instagram.com/p/DetvPEulXXN/",
+  "reel_estilo": "flotante",
+  "guion": {
+    "intro": "Cinco chollos tech de Amazon por menos de treinta euros… ¡con miles de reseñas!",
+    "productos": {
+      "1": "Y el número uno… ¡la cámara Tapo C doscientos diez! Gira trescientos sesenta grados y graba en 2K.",
+      "2": "Número dos: Sony WH-CH quinientos veinte. Cincuenta horas de batería.",
+      "3": "Número tres: Anker Nano dos. Cabe en el bolsillo y carga tu portátil.",
+      "4": "Número cuatro: power bank INIU. Carga rápida y cable incluido.",
+      "5": "Número cinco: Redmi Buds seis Play. Unos diez euros y treinta y seis horas de batería."
+    },
+    "cierre": "¿Cuál te llevas? Coméntalo. Los enlaces, en mi bio."
+  },
+  "reel_caption": "5 chollos tech de Amazon por menos de 30€ 🔥 ¿Cuál te llevas? Coméntalo 👇\n\n🔗 Enlaces en la bio · todos los detalles en el carrusel del perfil.\n\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#chollos #gadgets #tecnologia #amazonespaña #ofertas",
+  "musica": "01_future-bass_my-universe.mp3"
 }

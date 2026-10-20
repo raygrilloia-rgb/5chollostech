@@ -68,7 +68,12 @@ const TOTAL = t + 0.4, NFRAMES = Math.ceil(TOTAL * FPS);
 // ---------- recursos ----------
 const fondo = await loadImage(path.join(RAIZ, 'plantilla', 'fondo_portada.jpg'));
 const fotos = new Map();
-for (const p of EP.productos) fotos.set(p.puesto, await cargarFoto(path.resolve(RAIZ, p.foto), { recortar: p.ajuste !== 'cover' }));
+// estilo "flotante" (por defecto): producto en PNG sin tarjeta. "tarjeta": foto sobre tarjeta blanca (el del primer reel).
+const FLOTANTE = (EP.reel_estilo || 'flotante') === 'flotante';
+for (const p of EP.productos) {
+  const foto = FLOTANTE ? (p.foto_reel || p.foto) : p.foto;
+  fotos.set(p.puesto, await cargarFoto(path.resolve(RAIZ, foto), FLOTANTE ? { transparente: true } : { recortar: p.ajuste !== 'cover' }));
+}
 const emo = {};
 for (const n of ['2b50', '1f525', '1f447', '2705', '1f3c6']) emo[n] = await loadImage(path.join(RAIZ, 'emoji', `emoji_u${n}.png`));
 
@@ -158,15 +163,47 @@ function producto(ctx, b, lt, tGlobal) {
     ctx.beginPath(); ctx.arc(x, y, activo ? 30 : 22, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = C.blanco; ctx.font = `${activo ? 30 : 22}px ABK`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(q.puesto), x, y + 2);
   });
-  // tarjeta con la foto: entra desde la derecha y hace un zoom lento
-  const e = easeOut(prog(lt, 0, 0.35)), cw = 820, ch = 780, cx = (W - cw) / 2 + (1 - e) * 700, cy = 380;
-  ctx.save(); ctx.globalAlpha = e;
-  ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 18;
-  ctx.fillStyle = C.blanco; rrect(ctx, cx, cy, cw, ch, 52); ctx.fill(); ctx.shadowColor = 'transparent';
-  ctx.save(); rrect(ctx, cx, cy, cw, ch, 52); ctx.clip();
-  const z = 1 + 0.07 * prog(lt, 0, b.dur);
-  if (p.ajuste === 'cover') cubre(ctx, img, cx, cy, cw, ch, p.foco ?? 0.5, z); else cabe(ctx, img, cx + 70, cy + 70, cw - 140, ch - 140, z);
-  ctx.restore(); ctx.restore();
+  const e = easeOut(prog(lt, 0, 0.35)), cw = 820, ch = 780, cx = (W - cw) / 2 + (FLOTANTE ? 0 : (1 - e) * 700), cy = 380;
+  if (FLOTANTE) {
+    // producto en PNG flotando: halo de luz que gira, sombra en el suelo, balanceo suave y destellos
+    const mx = W / 2, my = cy + ch / 2, pop = easeBack(prog(lt, 0, 0.45));
+    ctx.save(); ctx.globalAlpha = e;
+    const halo = ctx.createRadialGradient(mx, my, 40, mx, my, 470);
+    halo.addColorStop(0, 'rgba(255,201,60,0.55)'); halo.addColorStop(0.45, 'rgba(255,106,0,0.28)'); halo.addColorStop(1, 'rgba(255,106,0,0)');
+    ctx.fillStyle = halo; ctx.fillRect(0, cy - 120, W, ch + 240);
+    ctx.translate(mx, my); ctx.rotate(tGlobal * 0.35);
+    for (let i = 0; i < 12; i++) {
+      ctx.rotate(Math.PI / 6);
+      const rg = ctx.createLinearGradient(0, 0, 0, -520); rg.addColorStop(0, 'rgba(255,220,150,0.16)'); rg.addColorStop(1, 'rgba(255,220,150,0)');
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.moveTo(-30, 0); ctx.lineTo(30, 0); ctx.lineTo(90, -520); ctx.lineTo(-90, -520); ctx.closePath(); ctx.fill();
+    }
+    ctx.restore();
+    const bob = Math.sin(tGlobal * 2.2) * 16, giro = Math.sin(tGlobal * 1.6) * 0.035, z = (0.62 + 0.38 * pop) * (1 + 0.05 * prog(lt, 0, b.dur));
+    // sombra elíptica: se encoge cuando el producto sube
+    ctx.save(); ctx.globalAlpha = 0.45 * e; ctx.fillStyle = '#000';
+    ctx.beginPath(); ctx.ellipse(mx, cy + ch - 40, 260 * (1 - bob / 120), 34, 0, 0, Math.PI * 2); ctx.filter = 'blur(14px)'; ctx.fill(); ctx.restore();
+    ctx.save(); ctx.globalAlpha = clamp(e * 1.4); ctx.translate(mx, my + bob - 20); ctx.rotate(giro); ctx.scale(z, z);
+    ctx.shadowColor = 'rgba(0,0,0,0.55)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 20;
+    cabe(ctx, img, -cw / 2 + 60, -ch / 2 + 60, cw - 120, ch - 160);
+    ctx.restore();
+    // destellos
+    for (let i = 0; i < 7; i++) {
+      const ang = i * 0.9 + tGlobal * (0.6 + i * 0.07), rad = 330 + 60 * Math.sin(tGlobal * 1.3 + i);
+      const sx = mx + Math.cos(ang) * rad, sy = my + Math.sin(ang) * rad * 0.8, s = 10 + 8 * Math.sin(tGlobal * 5 + i * 2);
+      if (s <= 0) continue;
+      ctx.save(); ctx.globalAlpha = 0.85 * e; ctx.fillStyle = i % 2 ? C.amarillo : C.blanco; ctx.translate(sx, sy); ctx.rotate(tGlobal * 2 + i);
+      ctx.beginPath(); for (let k = 0; k < 8; k++) { const r = k % 2 ? s * 0.28 : s; ctx.lineTo(Math.cos(k * Math.PI / 4) * r, Math.sin(k * Math.PI / 4) * r); } ctx.closePath(); ctx.fill(); ctx.restore();
+    }
+  } else {
+    // tarjeta blanca con la foto: entra desde la derecha y hace un zoom lento
+    ctx.save(); ctx.globalAlpha = e;
+    ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 18;
+    ctx.fillStyle = C.blanco; rrect(ctx, cx, cy, cw, ch, 52); ctx.fill(); ctx.shadowColor = 'transparent';
+    ctx.save(); rrect(ctx, cx, cy, cw, ch, 52); ctx.clip();
+    const z = 1 + 0.07 * prog(lt, 0, b.dur);
+    if (p.ajuste === 'cover') cubre(ctx, img, cx, cy, cw, ch, p.foco ?? 0.5, z); else cabe(ctx, img, cx + 70, cy + 70, cw - 140, ch - 140, z);
+    ctx.restore(); ctx.restore();
+  }
   // número
   const n = easeBack(prog(lt, 0.2, 0.4));
   if (n > 0) {
