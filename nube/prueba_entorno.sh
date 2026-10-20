@@ -3,6 +3,7 @@
 set -u
 cd "$(dirname "$0")/.."
 echo "== node $(node -v) / npm $(npm -v)"
+bash nube/descargar_musica.sh | tail -3
 npm ci --silent >/tmp/npm.log 2>&1 && echo "npm ci OK" || { echo "npm ci FALLO"; tail -20 /tmp/npm.log; }
 node -e "const p=require('ffmpeg-static');console.log('ffmpeg-static', p, require('fs').existsSync(p))"
 node -e "const fs=require('fs');const e=JSON.parse(fs.readFileSync('episodios/2026-10-21_smartwatch-menos-70.json','utf8'));e.slug='zz_prueba';fs.writeFileSync('/tmp/zz.json',JSON.stringify(e))"

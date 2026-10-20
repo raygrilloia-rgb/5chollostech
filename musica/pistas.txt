@@ -1,0 +1,8 @@
+01_future-bass_my-universe.mp3 https://cdn.pixabay.com/download/audio/2023/04/21/audio_8579ca297f.mp3
+02_future-bass_jonasblakewood.mp3 https://cdn.pixabay.com/download/audio/2026/07/01/audio_40551e4522.mp3
+03_tech-house_aurec.mp3 https://cdn.pixabay.com/download/audio/2026/09/29/audio_8f0e8458ac.mp3
+04_tech-house_jonasblakewood.mp3 https://cdn.pixabay.com/download/audio/2026/07/01/audio_06f1aedacc.mp3
+05_phonk_solarflex.mp3 https://cdn.pixabay.com/download/audio/2026/08/01/audio_c24e37558f.mp3
+06_energetic_atlasaudio.mp3 https://cdn.pixabay.com/download/audio/2026/03/24/audio_f26660b8b1.mp3
+07_hip-hop-upbeat_jonasblakewood.mp3 https://cdn.pixabay.com/download/audio/2026/06/04/audio_6ee9ad0f4d.mp3
+08_tech-upbeat_corporate.mp3 https://cdn.pixabay.com/download/audio/2024/03/30/audio_72e248b842.mp3
