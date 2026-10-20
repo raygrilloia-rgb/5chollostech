@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://raygrilloia-rgb.github.io/5chollostech/sitemap.xml

@@ -1,0 +1,70 @@
+{
+  "slug": "2026-10-21_smartwatch-menos-70",
+  "estado": "cola",
+  "fecha_datos": "20/10/2026",
+  "titulo_web": "5 smartwatch por menos de 70€",
+  "portada": {
+    "etiqueta": "TOP 5 · AMAZON ESPAÑA",
+    "linea1": "5 SMARTWATCH",
+    "linea2": "POR MENOS DE",
+    "precio": "70€",
+    "sub": "los más vendidos de Amazon"
+  },
+  "productos": [
+    {
+      "puesto": 5,
+      "asin": "B0GGJ3NG3Z",
+      "categoria": "PULSERA INTELIGENTE",
+      "nombre": "HUAWEI Band 11",
+      "ventajas": ["Pantalla AMOLED de 1,62\" muy brillante", "Solo 17 g, carcasa de aluminio", "Sueño avanzado con medición de HRV"],
+      "rating": "4,2",
+      "resenas": "338",
+      "foto": "fotos/smartwatch/band11_beige.png"
+    },
+    {
+      "puesto": 4,
+      "asin": "B0H8TCWZYF",
+      "categoria": "SMARTWATCH CON GPS",
+      "nombre": "Xiaomi Redmi Watch 6 Lite",
+      "ventajas": ["GPS integrado: sal a correr sin el móvil", "AMOLED de 1,96\" y 1.500 nits", "Hasta 18 días de batería"],
+      "rating": "4,6",
+      "resenas": "466",
+      "foto": "fotos/smartwatch/redmiwatch6lite.png"
+    },
+    {
+      "puesto": 3,
+      "asin": "B0H6WVVCC1",
+      "categoria": "SMARTWATCH",
+      "nombre": "Xiaomi Redmi Watch 6 Active",
+      "ventajas": ["Contesta llamadas desde la muñeca", "AMOLED de 1,85\" y 1.200 nits", "Hasta 18 días de batería"],
+      "rating": "4,6",
+      "resenas": "466",
+      "foto": "fotos/smartwatch/redmiwatch6active.png"
+    },
+    {
+      "puesto": 2,
+      "asin": "B0DY1JKTRD",
+      "categoria": "PULSERA INTELIGENTE",
+      "nombre": "HUAWEI Band 10",
+      "ventajas": ["Ultraligera: solo 15 g", "Análisis del sueño muy completo", "Seguimiento de actividad con IA"],
+      "rating": "4,4",
+      "resenas": "2.807",
+      "foto": "fotos/smartwatch/band10_black.png"
+    },
+    {
+      "puesto": 1,
+      "asin": "B0DYF82545",
+      "categoria": "PULSERA INTELIGENTE",
+      "nombre": "Xiaomi Smart Band 10",
+      "ventajas": ["Hasta 21 días de batería", "Pantalla AMOLED de 1,72\"", "150+ deportes y modo natación pro"],
+      "rating": "4,5",
+      "resenas": "15.016",
+      "foto": "fotos/smartwatch/smartband10.png"
+    }
+  ],
+  "cierre": {
+    "pregunta": "¿CUÁL TE LLEVAS?",
+    "cta": "Comenta del 1 al 5"
+  },
+  "caption": "5 smartwatch de Amazon por menos de 70€ ⌚🔥\n\nDe una pulsera de 29€ a un reloj con GPS: todos están entre los más vendidos de Amazon España y con buenas valoraciones.\n\n5️⃣ HUAWEI Band 11: AMOLED brillante y solo 17 g\n4️⃣ Redmi Watch 6 Lite: GPS integrado para correr sin el móvil\n3️⃣ Redmi Watch 6 Active: contesta llamadas desde la muñeca\n2️⃣ HUAWEI Band 10: la más ligera (15 g) y por unos 29€\n1️⃣ Xiaomi Smart Band 10: hasta 21 días de batería y más de 15.000 reseñas\n\n¿Pulsera o reloj? Comenta el número 👇\n💾 Guárdalo para cuando vayas a comprar.\n\n🔗 Todos los enlaces en la bio.\n\nPrecios y reseñas consultados el 20/10/2026: pueden cambiar.\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#smartwatch #pulserainteligente #chollos #tecnologia #amazonespaña #xiaomi"
+}

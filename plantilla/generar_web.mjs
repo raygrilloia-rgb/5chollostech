@@ -5,6 +5,7 @@ import { createCanvas, loadImage } from '@napi-rs/canvas';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cargarFoto } from './util.mjs';
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const WEB = path.join(RAIZ, 'docs');
@@ -18,7 +19,7 @@ const escribe = (rel, txt) => { const f = path.join(WEB, rel); fs.mkdirSync(path
 
 // Foto del producto en un cuadrado blanco de 800 px (JPEG ligero)
 async function fotoWeb(p, destino) {
-  const img = await loadImage(path.resolve(RAIZ, p.foto)), T = 800, cv = createCanvas(T, T), ctx = cv.getContext('2d');
+  const img = await cargarFoto(path.resolve(RAIZ, p.foto), { recortar: p.ajuste !== 'cover' }), T = 800, cv = createCanvas(T, T), ctx = cv.getContext('2d');
   ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, T, T);
   if (p.ajuste === 'cover') {
     const s = Math.max(T / img.width, T / img.height), sw = T / s, sh = T / s;
@@ -41,7 +42,7 @@ async function miniatura(slug, destino) {
   return true;
 }
 
-function plantilla({ titulo, descripcion, base, cuerpo, og }) {
+function plantilla({ titulo, descripcion, base, cuerpo, og, canonical, jsonld }) {
   return `<!doctype html>
 <html lang="es">
 <head>
@@ -53,6 +54,8 @@ function plantilla({ titulo, descripcion, base, cuerpo, og }) {
 <meta property="og:description" content="${esc(descripcion)}">
 ${og ? `<meta property="og:image" content="${esc(og)}">` : ''}
 <meta name="theme-color" content="#0A0F24">
+${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ''}
+${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 <link rel="icon" href="${base}assets/icono.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${base}assets/estilo.css">
 </head>
@@ -103,14 +106,18 @@ for (const [i, EP] of episodios.entries()) {
   escribe(dir + 'index.html', plantilla({
     titulo: `${tituloBonito} | 5ChollosTech`,
     descripcion: `${tituloBonito}: ${ordenados.map(p => p.nombre).join(', ')}. Seleccionados entre los más vendidos de Amazon España.`,
-    base: '../../', og: tieneMini ? 'portada.jpg' : '',
+    base: '../../', og: tieneMini ? `${CFG.web_url}${dir}portada.jpg` : '', canonical: `${CFG.web_url}${dir}`,
+    jsonld: {
+      '@context': 'https://schema.org', '@type': 'ItemList', name: tituloBonito,
+      itemListElement: ordenados.map(p => ({ '@type': 'ListItem', position: p.puesto, name: p.nombre, url: `${CFG.web_url}${dir}#p${p.puesto}` })),
+    },
     cuerpo: `
 <main class="pagina">
   <a class="volver" href="../../index.html">← Todos los Top 5</a>
   <section class="hero">
     <span class="etiqueta">${esc(P.etiqueta)}</span>
     <h1>${esc(P.linea1)} <span>${esc(P.linea2)}</span> <em>${esc(P.precio)}</em></h1>
-    <p>Elegidos entre los más vendidos de Amazon España, todos con valoraciones altas y miles de reseñas. Datos consultados el ${esc(EP.fecha_datos)}.</p>
+    <p>Elegidos entre los más vendidos de Amazon España, todos con buenas valoraciones. Datos consultados el ${esc(EP.fecha_datos)}.</p>
     <nav class="indice">${indice}</nav>
   </section>
   <section class="lista">${tarjetas}
@@ -119,16 +126,16 @@ for (const [i, EP] of episodios.entries()) {
   }));
 
   tarjetasInicio.push(`
-  <a class="post${i === 0 ? ' nuevo' : ''}" href="${dir}index.html">
+  <a class="post" data-slug="${EP.slug}" href="${dir}index.html">
     ${tieneMini ? `<img src="${dir}portada.jpg" alt="${esc(tituloBonito)}" width="540" height="675" loading="lazy">` : ''}
-    <div><span class="fecha">${i === 0 ? '🆕 Nuevo · ' : ''}${esc(EP.fecha_datos)}</span><h2>${esc(tituloBonito)}</h2><span class="ver">Ver los 5 →</span></div>
+    <div><span class="fecha">${esc(EP.fecha_datos)}</span><h2>${esc(tituloBonito)}</h2><span class="ver">Ver los 5 →</span></div>
   </a>`);
 }
 
 escribe('index.html', plantilla({
   titulo: '5ChollosTech | Los mejores chollos tech de Amazon',
   descripcion: 'Top 5 de tecnología barata y bien valorada en Amazon España: auriculares, smartwatch, cargadores y más.',
-  base: '',
+  base: '', canonical: CFG.web_url,
   cuerpo: `
 <main class="pagina">
   <section class="hero inicio">
@@ -138,7 +145,16 @@ escribe('index.html', plantilla({
   </section>
   <section class="posts">${tarjetasInicio.join('\n')}
   </section>
-</main>`,
+</main>
+<script>
+// Solo se muestran los posts ya publicados en Instagram (la rutina de publicación actualiza publicados.json).
+fetch('publicados.json', { cache: 'no-store' }).then(r => r.json()).then(lista => {
+  const ok = new Set(lista);
+  document.querySelectorAll('.post').forEach(a => { if (!ok.has(a.dataset.slug)) a.remove(); });
+  const primero = document.querySelector('.post');
+  if (primero) { primero.classList.add('nuevo'); primero.querySelector('.fecha').prepend('🆕 Nuevo · '); }
+}).catch(() => {});
+</script>`,
 }));
 
 const legal = (titulo, html) => plantilla({ titulo: `${titulo} | 5ChollosTech`, descripcion: titulo, base: '../', cuerpo: `<main class="pagina texto"><a class="volver" href="../index.html">← Inicio</a><h1>${titulo}</h1>${html}</main>` });
@@ -152,4 +168,14 @@ escribe('privacidad/index.html', legal('Privacidad', `
 <p>Al pulsar un enlace a Amazon sales de esta web: a partir de ahí se aplica la política de privacidad y de cookies de Amazon.</p>
 <p>Para cualquier consulta: ${esc(CFG.email)}</p>`));
 escribe('.nojekyll', '');
+
+// publicados.json: lo que ya salió en Instagram. La rutina en la nube lo amplía al publicar.
+const fPub = path.join(RAIZ, 'publicados.json');
+const previo = fs.existsSync(fPub) ? JSON.parse(fs.readFileSync(fPub, 'utf8')) : [];
+const todos = [...new Set([...previo, ...episodios.filter(e => (e.estado || 'publicado') === 'publicado').map(e => e.slug)])];
+fs.writeFileSync(fPub, JSON.stringify(todos, null, 2) + '\n');
+escribe('publicados.json', JSON.stringify(todos));
+escribe('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${CFG.web_url}sitemap.xml\n`);
+const urls = [CFG.web_url, ...episodios.filter(e => todos.includes(e.slug)).map(e => `${CFG.web_url}top/${e.slug}/`)];
+escribe('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 console.log(`Web generada en ${WEB} con ${episodios.length} post(s)`);

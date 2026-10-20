@@ -9,6 +9,8 @@
 <meta property="og:description" content="Top 5 de tecnología barata y bien valorada en Amazon España: auriculares, smartwatch, cargadores y más.">
 
 <meta name="theme-color" content="#0A0F24">
+<link rel="canonical" href="https://raygrilloia-rgb.github.io/5chollostech/">
+
 <link rel="icon" href="assets/icono.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/estilo.css">
 </head>
@@ -25,12 +27,26 @@
     <p>Cada semana elegimos los 5 mejores productos de una categoría entre los más vendidos de Amazon. Pulsa en un post para ver los enlaces.</p>
   </section>
   <section class="posts">
-  <a class="post nuevo" href="top/2026-10-20_chollos-menos-30/index.html">
+  <a class="post" data-slug="2026-10-21_smartwatch-menos-70" href="top/2026-10-21_smartwatch-menos-70/index.html">
+    <img src="top/2026-10-21_smartwatch-menos-70/portada.jpg" alt="5 smartwatch por menos de 70€" width="540" height="675" loading="lazy">
+    <div><span class="fecha">20/10/2026</span><h2>5 smartwatch por menos de 70€</h2><span class="ver">Ver los 5 →</span></div>
+  </a>
+
+  <a class="post" data-slug="2026-10-20_chollos-menos-30" href="top/2026-10-20_chollos-menos-30/index.html">
     <img src="top/2026-10-20_chollos-menos-30/portada.jpg" alt="5 chollos tech por menos de 30€" width="540" height="675" loading="lazy">
-    <div><span class="fecha">🆕 Nuevo · 20/10/2026</span><h2>5 chollos tech por menos de 30€</h2><span class="ver">Ver los 5 →</span></div>
+    <div><span class="fecha">20/10/2026</span><h2>5 chollos tech por menos de 30€</h2><span class="ver">Ver los 5 →</span></div>
   </a>
   </section>
 </main>
+<script>
+// Solo se muestran los posts ya publicados en Instagram (la rutina de publicación actualiza publicados.json).
+fetch('publicados.json', { cache: 'no-store' }).then(r => r.json()).then(lista => {
+  const ok = new Set(lista);
+  document.querySelectorAll('.post').forEach(a => { if (!ok.has(a.dataset.slug)) a.remove(); });
+  const primero = document.querySelector('.post');
+  if (primero) { primero.classList.add('nuevo'); primero.querySelector('.fecha').prepend('🆕 Nuevo · '); }
+}).catch(() => {});
+</script>
 <footer class="pie">
   <p class="aviso">Como afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. Los precios y las reseñas pueden cambiar: consulta siempre el precio actual en Amazon.</p>
   <nav><a href="aviso-legal/index.html">Aviso legal</a> · <a href="privacidad/index.html">Privacidad</a> · <a href="https://www.instagram.com/5chollostech/" target="_blank" rel="noopener">Instagram</a></nav>

@@ -1,5 +1,6 @@
 {
   "slug": "2026-10-20_chollos-menos-30",
+  "estado": "publicado",
   "fecha_datos": "20/10/2026",
   "titulo_web": "5 chollos tech por menos de 30€",
   "portada": {
@@ -15,7 +16,11 @@
       "asin": "B0DBHRWRKC",
       "categoria": "AURICULARES",
       "nombre": "Xiaomi Redmi Buds 6 Play",
-      "ventajas": ["Hasta 36 h de batería con el estuche", "Bluetooth 5.4 y súper ligeros", "4 modos de ecualización"],
+      "ventajas": [
+        "Hasta 36 h de batería con el estuche",
+        "Bluetooth 5.4 y súper ligeros",
+        "4 modos de ecualización"
+      ],
       "rating": "4,4",
       "resenas": "28.429",
       "foto": "prototipo/fotos/5_redmi.jpg",
@@ -27,7 +32,11 @@
       "asin": "B0DCYR5VNR",
       "categoria": "POWER BANK",
       "nombre": "INIU Power Bank 20.000 mAh",
-      "ventajas": ["Carga rápida de 45W", "Cable USB-C integrado", "Compacta y apta para avión"],
+      "ventajas": [
+        "Carga rápida de 45W",
+        "Cable USB-C integrado",
+        "Compacta y apta para avión"
+      ],
       "rating": "4,5",
       "resenas": "6.117",
       "foto": "prototipo/fotos/4_iniu.png"
@@ -37,7 +46,11 @@
       "asin": "B09LLRNGSD",
       "categoria": "CARGADOR",
       "nombre": "Anker Nano II 65W (3 puertos)",
-      "ventajas": ["Carga hasta un portátil", "2 USB-C + 1 USB-A a la vez", "Tamaño de bolsillo (GaN II)"],
+      "ventajas": [
+        "Carga hasta un portátil",
+        "2 USB-C + 1 USB-A a la vez",
+        "Tamaño de bolsillo (GaN II)"
+      ],
       "rating": "4,7",
       "resenas": "15.055",
       "foto": "prototipo/fotos/3_anker.png"
@@ -47,7 +60,11 @@
       "asin": "B0BTJD6LCL",
       "categoria": "AURICULARES DE DIADEMA",
       "nombre": "Sony WH-CH520",
-      "ventajas": ["Hasta 50 h de batería", "Ligeros y cómodos para todo el día", "Conexión a 2 dispositivos a la vez"],
+      "ventajas": [
+        "Hasta 50 h de batería",
+        "Ligeros y cómodos para todo el día",
+        "Conexión a 2 dispositivos a la vez"
+      ],
       "rating": "4,6",
       "resenas": "61.791",
       "foto": "prototipo/fotos/2_sony.png"
@@ -57,7 +74,11 @@
       "asin": "B095CLQ1PT",
       "categoria": "CÁMARA WIFI",
       "nombre": "Tapo C210 (TP-Link)",
-      "ventajas": ["Gira 360º y graba en 2K", "Detecta personas y llanto de bebé", "Visión nocturna y alarma"],
+      "ventajas": [
+        "Gira 360º y graba en 2K",
+        "Detecta personas y llanto de bebé",
+        "Visión nocturna y alarma"
+      ],
       "rating": "4,7",
       "resenas": "53.710",
       "foto": "prototipo/fotos/1_tapo.jpg"
@@ -66,5 +87,8 @@
   "cierre": {
     "pregunta": "¿CUÁL TE LLEVAS?",
     "cta": "Comenta del 1 al 5"
-  }
+  },
+  "caption": "5 chollos tech de Amazon por menos de 30€ que tienen MILES de reseñas 🔥\n\nNo son cosas random: los 5 están entre los más vendidos de Amazon España y todos superan las 4 estrellas.\n\n5️⃣ Xiaomi Redmi Buds 6 Play: auriculares de unos 10€ con hasta 36 h de batería\n4️⃣ INIU Power Bank 20.000 mAh: 45W y cable USB-C integrado\n3️⃣ Anker Nano II 65W: un cargador de bolsillo que carga hasta el portátil\n2️⃣ Sony WH-CH520: 50 h de batería y más de 61.000 reseñas\n1️⃣ Tapo C210: cámara WiFi 360º en 2K para vigilar casa, bebé o mascota\n\n¿Cuál te llevas? Comenta el número 👇\n💾 Guárdalo para tu próxima compra.\n\n🔗 Todos los enlaces en la bio.\n\nPrecios y reseñas consultados el 20/10/2026: pueden cambiar.\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#chollos #gadgets #tecnologia #amazonespaña #ofertas #chollostech",
+  "publicado_utc": "2026-10-20T11:35:18Z",
+  "instagram": "https://www.instagram.com/p/DetvPEulXXN/"
 }

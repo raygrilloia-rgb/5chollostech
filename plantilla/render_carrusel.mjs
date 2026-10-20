@@ -5,6 +5,7 @@ import { createCanvas, GlobalFonts, loadImage } from '@napi-rs/canvas';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cargarFoto } from './util.mjs';
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const W = 1080, H = 1350;
@@ -26,7 +27,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const emo = {};
 for (const n of ['2b50', '1f525', '1f447', '2705', '1f3c6']) emo[n] = await loadImage(path.join(RAIZ, 'emoji', `emoji_u${n}.png`));
-const fotos = await Promise.all(EP.productos.map(p => loadImage(path.resolve(RAIZ, p.foto))));
+const fotos = await Promise.all(EP.productos.map(p => cargarFoto(path.resolve(RAIZ, p.foto), { recortar: p.ajuste !== 'cover' })));
 const TOTAL = EP.productos.length + 2;
 
 // ---------- utilidades ----------
