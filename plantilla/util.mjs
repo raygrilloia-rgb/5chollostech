@@ -88,4 +88,4 @@ export function ffmpeg() {
   if (process.env.FFMPEG) return process.env.FFMPEG;
   return createRequire(import.meta.url)('ffmpeg-static');
 }
-export const CODEC_VIDEO = ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-maxrate', '4000k', '-bufsize', '8000k', '-pix_fmt', 'yuv420p', '-profile:v', 'high'];
+export const CODEC_VIDEO = ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-maxrate', '4000k', '-bufsize', '8000k', '-pix_fmt', 'yuv420p', '-profile:v', 'high'];

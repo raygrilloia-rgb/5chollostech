@@ -38,10 +38,22 @@ async function locucion(texto, nombre) {
   const mp3 = path.join(TMP, nombre + '.mp3'), wav = path.join(TMP, nombre + '.wav');
   const firma = path.join(TMP, nombre + '.txt'), clave = `${VOZ.nombre}|${VOZ.rate}|${VOZ.pitch}|${texto}`;
   if (fs.existsSync(wav) && fs.existsSync(firma) && fs.readFileSync(firma, 'utf8') === clave) return wav;
-  const tts = new MsEdgeTTS();
-  await tts.setMetadata(VOZ.nombre, OUTPUT_FORMAT.AUDIO_24KHZ_96KBITRATE_MONO_MP3);
-  const { audioFilePath } = await tts.toFile(TMP, texto, { rate: VOZ.rate, pitch: VOZ.pitch });
-  fs.renameSync(audioFilePath, mp3); tts.close();
+  // el servicio de voz limita las peticiones seguidas (429): se reintenta con esperas crecientes
+  for (let intento = 1; ; intento++) {
+    try {
+      const tts = new MsEdgeTTS();
+      await tts.setMetadata(VOZ.nombre, OUTPUT_FORMAT.AUDIO_24KHZ_96KBITRATE_MONO_MP3);
+      const { audioFilePath } = await tts.toFile(TMP, texto, { rate: VOZ.rate, pitch: VOZ.pitch });
+      fs.renameSync(audioFilePath, mp3); tts.close();
+      break;
+    } catch (e) {
+      if (intento >= 5) throw e;
+      const espera = [4, 10, 25, 60][intento - 1];
+      console.log(`voz: ${String(e.message || e).slice(0, 80)} → reintento en ${espera}s`);
+      await new Promise(r => setTimeout(r, espera * 1000));
+    }
+  }
+  await new Promise(r => setTimeout(r, 700));
   // la voz deja ~1 s de pausa en los ":" y "…" y otro al final: se acortan a 0,2 s para que el reel tenga ritmo
   const r = spawnSync(FF, ['-y', '-hide_banner', '-loglevel', 'error', '-i', mp3, '-af',
     'silenceremove=start_periods=1:start_threshold=-42dB:stop_periods=-1:stop_duration=0.2:stop_threshold=-42dB:stop_silence=0.18,aresample=48000',
@@ -51,7 +63,9 @@ async function locucion(texto, nombre) {
   return wav;
 }
 const ordenados = [...EP.productos].sort((a, b) => b.puesto - a.puesto); // 5 → 1
-const bloques = [{ tipo: 'intro', texto: EP.guion.intro }];
+// gancho opcional: una pregunta de 1-2 s antes del título (los primeros segundos deciden si la gente se queda)
+const bloques = EP.guion.gancho ? [{ tipo: 'gancho', texto: EP.guion.gancho }] : [];
+bloques.push({ tipo: 'intro', texto: EP.guion.intro });
 for (const p of ordenados) bloques.push({ tipo: 'producto', p, texto: EP.guion.productos[String(p.puesto)] });
 bloques.push({ tipo: 'cierre', texto: EP.guion.cierre });
 let t = 0;
@@ -59,8 +73,8 @@ for (const [i, b] of bloques.entries()) {
   b.audio = await locucion(b.texto, `voz_${i}`);
   b.voz = duracion(b.audio);
   b.ini = t;
-  b.dur = Math.max(b.tipo === 'cierre' ? 3.4 : 2.6, b.voz + (b.tipo === 'intro' ? 0.45 : 0.35));
-  b.vozIni = t + (b.tipo === 'intro' ? 0.25 : 0.2);
+  b.dur = b.tipo === 'gancho' ? b.voz + 0.3 : Math.max(b.tipo === 'cierre' ? 3.4 : 2.6, b.voz + (b.tipo === 'intro' ? 0.45 : 0.35));
+  b.vozIni = t + (b.tipo === 'gancho' ? 0.05 : b.tipo === 'intro' ? 0.25 : 0.2);
   t += b.dur;
 }
 const TOTAL = t + 0.4, NFRAMES = Math.ceil(TOTAL * FPS);
@@ -266,10 +280,33 @@ function cierre(ctx, lt, tGlobal) {
   ctx.fillText('Sígueme para más chollos: @5chollostech', W / 2, 1260); ctx.restore();
 }
 
+function gancho(ctx, b, lt, tGlobal) {
+  fondoMarca(ctx, tGlobal);
+  const texto = EP.guion.gancho_texto || b.texto;
+  ctx.font = '92px ABK';
+  const pal = texto.split(' '), lineas = [[]];
+  for (const w of pal) { const l = lineas[lineas.length - 1]; if (ctx.measureText([...l, w].join(' ')).width > 940 && l.length) lineas.push([w]); else l.push(w); }
+  // las palabras aparecen al ritmo de la voz
+  const total = pal.length, visibles = Math.ceil(total * clamp((lt - 0.05) / Math.max(0.6, b.voz * 0.85)));
+  let k = 0; const y0 = H * 0.42 - (lineas.length - 1) * 58;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  lineas.forEach((l, i) => {
+    const anchoL = ctx.measureText(l.join(' ')).width; let x = W / 2 - anchoL / 2;
+    for (const w of l) {
+      const ww = ctx.measureText(w + ' ').width;
+      if (k < visibles) { const a = easeBack(clamp((lt - k * (b.voz * 0.85 / total)) / 0.18)); ctx.save(); ctx.translate(x + ww / 2, y0 + i * 116); ctx.scale(a, a);
+        ctx.fillStyle = /d|€/.test(w) ? C.amarillo : C.blanco; ctx.fillText(w, -ww / 2, 0); ctx.restore(); }
+      x += ww; k++;
+    }
+  });
+  const fl = 1 - prog(lt, 0, 0.2); if (fl > 0) { ctx.fillStyle = `rgba(255,255,255,${fl * 0.6})`; ctx.fillRect(0, 0, W, H); }
+}
+
 function frame(ctx, t) {
   const b = bloques.find(x => t >= x.ini && t < x.ini + x.dur) || bloques[bloques.length - 1];
   const lt = t - b.ini;
-  if (b.tipo === 'intro') intro(ctx, lt);
+  if (b.tipo === 'gancho') gancho(ctx, b, lt, t);
+  else if (b.tipo === 'intro') intro(ctx, lt);
   else if (b.tipo === 'producto') producto(ctx, b, lt, t);
   else cierre(ctx, lt, t);
   // barra de progreso arriba
@@ -282,7 +319,7 @@ function frame(ctx, t) {
 const cv = createCanvas(W, H), ctx = cv.getContext('2d');
 if (PREVIEW) {
   const pd = path.join(OUT, 'reel_preview'); fs.rmSync(pd, { recursive: true, force: true }); fs.mkdirSync(pd, { recursive: true });
-  const marcas = [0.15, 1.4, ...bloques.slice(1).map(x => x.ini + Math.min(1.6, x.dur - 0.2))];
+  const marcas = bloques.map(x => x.ini + Math.min(x.tipo === 'intro' ? 1.4 : 1.6, x.dur - 0.2));
   marcas.forEach((m, i) => { frame(ctx, m); fs.writeFileSync(path.join(pd, `f${i}.jpg`), cv.toBuffer('image/jpeg', 80)); });
   console.log('preview', pd, TOTAL.toFixed(1) + 's');
   process.exit(0);
@@ -301,13 +338,31 @@ const vozWav = path.join(TMP, 'voz.wav');
   const r = spawnSync(FF, ['-y', '-hide_banner', '-loglevel', 'error', ...ins, '-filter_complex', fil, '-map', '[v]', '-ac', '1', vozWav], { encoding: 'utf8' });
   if (r.status !== 0) { console.error(r.stderr); process.exit(1); }
 }
+// efectos sintetizados: "whoosh" en cada cambio de escena y "ding" al llegar al #1
+const sfxWav = path.join(TMP, 'sfx.wav');
+{
+  const SR = 48000, N = Math.ceil(TOTAL * SR), buf = new Float32Array(N);
+  const whoosh = (t0, dur = 0.42, gain = 0.5) => { let lp = 0, i0 = Math.floor(t0 * SR); for (let i = 0; i < dur * SR && i0 + i < N; i++) { const x = i / (dur * SR), env = Math.sin(Math.PI * x) ** 2, k = 0.02 + 0.25 * x; lp += k * ((Math.random() * 2 - 1) - lp); buf[i0 + i] += lp * env * gain * 2.2; } };
+  const ding = (t0, gain = 0.35) => { const i0 = Math.floor(t0 * SR); for (let i = 0; i < 1.1 * SR && i0 + i < N; i++) { const tt = i / SR, env = Math.exp(-tt * 4.5); buf[i0 + i] += gain * env * (Math.sin(2 * Math.PI * 1318.5 * tt) + 0.5 * Math.sin(2 * Math.PI * 2637 * tt) + 0.25 * Math.sin(2 * Math.PI * 3955 * tt)) / 1.75; } };
+  const pop = (t0, gain = 0.4) => { const i0 = Math.floor(t0 * SR); let ph = 0; for (let i = 0; i < 0.12 * SR && i0 + i < N; i++) { const x = i / (0.12 * SR); ph += 2 * Math.PI * (700 - 500 * x) / SR; buf[i0 + i] += gain * Math.sin(ph) * (1 - x); } };
+  for (const b of bloques) {
+    if (b.tipo === 'gancho') pop(b.ini + 0.02);
+    else if (b.ini > 0) whoosh(Math.max(0, b.ini - 0.2));
+    if (b.tipo === 'producto' && b.p.puesto === 1) ding(b.ini + 0.25);
+  }
+  const pcm = Buffer.alloc(44 + N * 2);
+  pcm.write('RIFF', 0); pcm.writeUInt32LE(36 + N * 2, 4); pcm.write('WAVEfmt ', 8); pcm.writeUInt32LE(16, 16); pcm.writeUInt16LE(1, 20); pcm.writeUInt16LE(1, 22);
+  pcm.writeUInt32LE(SR, 24); pcm.writeUInt32LE(SR * 2, 28); pcm.writeUInt16LE(2, 32); pcm.writeUInt16LE(16, 34); pcm.write('data', 36); pcm.writeUInt32LE(N * 2, 40);
+  for (let i = 0; i < N; i++) pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, buf[i])) * 32767), 44 + i * 2);
+  fs.writeFileSync(sfxWav, pcm);
+}
 const mp4 = path.join(OUT, 'reel.mp4');
 const filtro = `[1:a]atrim=${inicioMusica}:${(inicioMusica + TOTAL).toFixed(2)},asetpts=PTS-STARTPTS,aresample=48000,volume=0.55,afade=t=in:d=0.3,afade=t=out:st=${(TOTAL - 1.2).toFixed(2)}:d=1.2[m];`
   + `[2:a]aresample=48000,volume=1.6,asplit[va][vb];[m][va]sidechaincompress=threshold=0.03:ratio=9:attack=15:release=350[md];`
-  + `[md][vb]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]`;
+  + `[3:a]volume=${EP.sfx === false ? 0 : 0.8}[sx];[md][vb][sx]amix=inputs=3:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]`;
 const ff = spawn(FF, ['-y', '-hide_banner', '-loglevel', 'error',
   '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${W}x${H}`, '-r', String(FPS), '-i', '-',
-  '-i', musica, '-i', vozWav, '-filter_complex', filtro, '-map', '0:v', '-map', '[a]',
+  '-i', musica, '-i', vozWav, '-i', sfxWav, '-filter_complex', filtro, '-map', '0:v', '-map', '[a]',
   ...CODEC_VIDEO, '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
   '-t', TOTAL.toFixed(2), '-movflags', '+faststart', mp4], { stdio: ['pipe', 'inherit', 'inherit'] });
 const t0 = Date.now();
