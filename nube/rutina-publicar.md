@@ -13,7 +13,7 @@ La rutina se ejecuta **una vez al día** (18:00 UTC: 20:00 en la España peninsu
 ## 1. Comprobaciones
 1. Ejecuta `git pull`.
 2. Lee `CLAUDE.md` y `publicados.md`.
-3. Si `publicados.md` ya tiene un post con fecha de **hoy (UTC)**, no publiques nada: termina con el estado "YA PUBLICADO HOY".
+3. Si `publicados.md` ya tiene un **carrusel** (una fila sin "(REEL)") con fecha de **hoy (UTC)**, no publiques nada. Las filas "(REEL)" son de la rutina de Reels: no cuentan: termina con el estado "YA PUBLICADO HOY".
 4. `INSTAGRAM_GET_USER_INFO` (`ig_user_id: "me"`) tiene que devolver `username` = **5chollostech**. Si devuelve otra cosa, **no publiques** y termina con el estado "CUENTA INCORRECTA".
 
 ## 2. Elegir el post

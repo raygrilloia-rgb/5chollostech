@@ -18,7 +18,7 @@ Se ejecuta **una vez al día a las 11:00 UTC** (13:00 en la península en verano
    - tiene el archivo `salida/<slug>/reel.mp4`.
 
    Si no hay ninguno, termina con el estado "SIN REEL" (no es un error).
-3. Si `publicados.md` ya tiene un Reel con fecha de hoy, termina con el estado "YA PUBLICADO HOY".
+3. Si `publicados.md` ya tiene una fila "(REEL)" con fecha de hoy (UTC), termina con el estado "YA PUBLICADO HOY".
 4. Comprueba que `https://raw.githubusercontent.com/raygrilloia-rgb/5chollostech/main/salida/<slug>/reel.mp4` devuelve 200 con `curl -sI`.
 5. `INSTAGRAM_POST_IG_USER_MEDIA` con estos parámetros:
    - `ig_user_id: "17841455332939462"`
