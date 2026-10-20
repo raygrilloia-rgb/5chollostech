@@ -5,6 +5,7 @@ Cada post trata **una sola categoría** y lleva un tope de precio en el título.
 | Categoría | Cómo buscar en Amazon (lector del workbench) | Tope de precio orientativo |
 |---|---|---|
 | Smartwatch y pulseras | `mas_vendidos("3457446031")` | 50 / 70 € |
+| Audio portátil (auriculares, altavoces, cargadores: lista mixta, filtra por tipo) | `mas_vendidos("665477031")` | 30 / 50 € |
 | Auriculares inalámbricos | `buscar("auriculares inalambricos bluetooth")` y `buscar("auriculares cancelacion de ruido")` | 30 / 50 € |
 | Auriculares de diadema | `buscar("auriculares diadema bluetooth")` | 40 / 60 € |
 | Auriculares gaming | `buscar("auriculares gaming")` | 40 € |

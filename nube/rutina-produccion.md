@@ -16,7 +16,14 @@ Ray delegó en Claude las decisiones de contenido (20/10/2026). Lee antes `CLAUD
 ## 2. Investigar en Amazon (en el workbench de Composio)
 Desde la nube de Claude, Amazon bloquea las consultas. Por eso se usa `mcp__Composio__COMPOSIO_REMOTE_WORKBENCH` (cárgalo con ToolSearch "composio", después de un `COMPOSIO_SEARCH_TOOLS` con `session: {generate_id: true}`).
 1. En la primera celda, **pega el contenido completo** de `nube/amazon_workbench.py`, que lees de tu copia del repo. Desde el workbench, raw.githubusercontent devuelve 404.
-2. Saca entre 15 y 30 candidatos con `mas_vendidos(nodo, 2)` o `buscar(q)`, según `categorias.md`. **El precio se toma de esas listas**: la ficha individual no lo muestra.
+2. **Presupuesto de Amazon: como máximo 12 páginas por ejecución** (búsquedas + listas + fichas). Si se piden más, Amazon detecta el robot y bloquea durante horas. El 20/10 falló así, con 60 consultas.
+   - Empieza **siempre** por `mas_vendidos(nodo, 2)` de la categoría: son 2 páginas y unos 60 productos con precio, estrellas y reseñas. Solo si la categoría no tiene nodo, usa como mucho 3 `buscar(q)` bien elegidos, no uno por marca.
+   - Filtra en local, sin consultar Amazon: precio por debajo del tope, rating ≥ 4,2, reseñas ≥ 300, marca conocida (descarta las genéricas tipo "UOHHBOE"), sin "Reacondicionado".
+   - Pide `ficha()` solo de los **7 mejores**.
+   - Si una ficha dice "Amazon Devoluciones" (productos devueltos), descártala. Vale si `vendido_por_amazon` o `enviado_por_amazon` es true.
+   - Si Amazon empieza a devolver páginas vacías o un reto anti-bot, **para de inmediato**. No reintentes en bucle. Guarda lo que tengas en `nube/candidatos/<categoria>.json` (ASIN, precio, rating, reseñas y ficha) y termina con el estado "AMAZON BLOQUEADO". La próxima ejecución parte de ese archivo si tiene menos de 3 días.
+   - **Si hay 4 productos buenos y no aparece un quinto,** cambia el tope de precio del título (de 30 a 40 €) o el enfoque ("auriculares de diadema" en vez de "inalámbricos") usando los candidatos que ya tienes, antes de pedir más páginas.
+   **El precio se toma de las listas**: la ficha individual no lo muestra.
    **Importante:** cada llamada al workbench se corta a los **60 s**. Lanza el trabajo en un hilo (`threading.Thread(target=..., daemon=True).start()`) que guarde los resultados en un diccionario global, y recógelos en la siguiente llamada.
    - **Antes de elegir,** haz la lista de los ASIN de todos los `episodios/*.json` (de cualquier estado) y descártalos.
 3. Pide `ficha(asin)` de los 8-10 mejores candidatos. Hazlo de uno en uno, porque el lector ya mete pausas, y en celdas de máximo 4 fichas por el límite de 180 s.
