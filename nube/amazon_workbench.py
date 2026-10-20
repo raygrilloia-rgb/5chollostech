@@ -12,12 +12,22 @@ _H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 _S = requests.Session()
 
 def _get(url):
-    for i in range(3):
-        r = _S.get(url, headers=_H, timeout=25)
-        if r.status_code == 200 and "captcha" not in r.text.lower()[:20000]:
-            return r.text
-        time.sleep(3 + 4 * i)
-    raise RuntimeError(f"Amazon no respondió bien: {url} ({r.status_code})")
+    # Amazon corta la conexión o pide captcha si se le piden muchas páginas seguidas:
+    # se espera, se cambia de sesión y se reintenta. Entre página y página hay siempre una pausa.
+    global _S
+    ultimo = None
+    for i in range(5):
+        try:
+            r = _S.get(url, headers=_H, timeout=25)
+            if r.status_code == 200 and "captcha" not in r.text.lower()[:20000]:
+                time.sleep(1.5)
+                return r.text
+            ultimo = r.status_code
+        except requests.RequestException as e:
+            ultimo = str(e)[:80]
+        _S = requests.Session()
+        time.sleep([4, 10, 20, 40, 60][i])
+    raise RuntimeError(f"Amazon no respondió bien: {url} ({ultimo})")
 
 def _txt(s):
     return re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", s or ""))).strip()
@@ -38,10 +48,10 @@ def mas_vendidos(nodo, paginas=2):
                 out.append({"rank": int(rank) if rank else None, "asin": asin, "titulo": unescape(titulo)[:140], "precio": precio, "rating": rating, "resenas": resenas})
     return out
 
-def subcategorias(nodo):
-    h = _get(f"https://www.amazon.es/gp/bestsellers/electronics/{nodo}")
+def subcategorias(nodo, raiz="electronics"):
+    h = _get(f"https://www.amazon.es/gp/bestsellers/{raiz}/{nodo}" if nodo else f"https://www.amazon.es/gp/bestsellers/{raiz}")
     vistos, out = set(), []
-    for href, nombre in re.findall(r'href="(/gp/bestsellers/electronics/\d+)[^"]*"[^>]*>([^<]+)<', h):
+    for href, nombre in re.findall(r'href="(/gp/bestsellers/' + raiz + r'/\d+)[^"]*"[^>]*>([^<]+)<', h):
         n = href.rsplit("/", 1)[1]
         if n not in vistos and n != nodo:
             vistos.add(n); out.append((_txt(nombre), n))
