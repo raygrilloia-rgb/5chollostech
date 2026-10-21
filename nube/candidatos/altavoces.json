@@ -1,0 +1,17 @@
+{
+  "fecha": "2026-10-21",
+  "titulo_propuesto": "5 altavoces Bluetooth por menos de 50€",
+  "nota": "Validado desde el PC de Ray con ubicación Madrid 28001. Faltan 2 productos con foto oficial. El Sony SRS-XB100 y el soundcore Select 4 Go no tienen foto accesible en sony.es ni en soundcore.com/anker.com: búscala o sustitúyelos. Opciones: JBL GO Essential 2 (B0DSG1NYJJ, 29,90 €, 4,6, 2.053) o soundcore 3 (B08BCHKY52, 49,99 €, 4,6, 15.438).",
+  "validados_con_foto": [
+    {"asin": "B0CX93RKQX", "nombre": "JBL Clip 5", "color": "Azul", "precio": "36,99", "rating": "4,7", "resenas": "6.143", "vendedor": "Amazon", "foto": "fotos/altavoces/jbl_clip5_azul.png",
+     "ventajas": ["Mosquetón para colgarlo donde quieras", "Resistente al agua y al polvo (IP67)", "Hasta 12 h de batería"]},
+    {"asin": "B0GPPRPRM5", "nombre": "JBL Go 5", "color": "Negro", "precio": "39,90", "rating": "4,7", "resenas": "1.552", "vendedor": "Amazon", "foto": "fotos/altavoces/jbl_go5_negro.png",
+     "ventajas": ["Cabe en la palma de la mano", "IP68 y resistente a caídas", "Luz ambiental en el borde"]},
+    {"asin": "B0CZRP1KFG", "nombre": "Xiaomi Sound Outdoor 30W", "color": "Negro", "precio": "46,98", "rating": "4,6", "resenas": "1.264", "vendedor": "Amazon", "foto": "fotos/altavoces/xiaomi_outdoor.png",
+     "ventajas": ["30W con graves potentes", "Hasta 12 h de batería", "Resistente al agua (IP67)"]}
+  ],
+  "validados_sin_foto": [
+    {"asin": "B0DB1753RZ", "nombre": "soundcore Select 4 Go", "precio": "24,99", "rating": "4,7", "resenas": "14.174", "vendedor": "AnkerDirect ES"},
+    {"asin": "B0CCYFP62W", "nombre": "Sony SRS-XB100", "precio": "38,90", "rating": "4,5", "resenas": "5.333", "vendedor": "Amazon"}
+  ]
+}
