@@ -19,8 +19,9 @@ Desde la nube de Claude, Amazon bloquea las consultas. Por eso se usa `mcp__Comp
 2. **Presupuesto de Amazon: como máximo 12 páginas por ejecución** (búsquedas + listas + fichas). Si se piden más, Amazon detecta el robot y bloquea durante horas. El 20/10 falló así, con 60 consultas.
    - Empieza **siempre** por `mas_vendidos(nodo, 2)` de la categoría: son 2 páginas y unos 60 productos con precio, estrellas y reseñas. Solo si la categoría no tiene nodo, usa como mucho 3 `buscar(q)` bien elegidos, no uno por marca.
    - Filtra en local, sin consultar Amazon: precio por debajo del tope, rating ≥ 4,2, reseñas ≥ 300, marca conocida (descarta las genéricas tipo "UOHHBOE"), sin "Reacondicionado".
-   - Pide `ficha()` solo de los **7 mejores**.
-   - Si una ficha dice "Amazon Devoluciones" (productos devueltos), descártala. Vale si `vendido_por_amazon` o `enviado_por_amazon` es true.
+   - Pide `ficha()` solo de los **7 mejores**. Sirve para sacar ventajas, colores y variantes.
+   - ⚠️ **El workbench se conecta desde Estados Unidos.** Amazon le enseña la ficha como "no disponible" y sin vendedor, y no deja cambiar la ubicación sin iniciar sesión (21/10/2026). Por eso `vendido_por_amazon` y `enviado_por_amazon` salen casi siempre en false: **no los uses para descartar**. La prueba de que se vende en España es que el producto aparezca **con precio** en `mas_vendidos()` (o en `buscar()`). Si no tiene precio en ninguna lista, descártalo.
+   - Descarta lo "Reacondicionado" y "Amazon Devoluciones", y las marcas desconocidas.
    - Si Amazon empieza a devolver páginas vacías o un reto anti-bot, **para de inmediato**. No reintentes en bucle. Guarda lo que tengas en `nube/candidatos/<categoria>.json` (ASIN, precio, rating, reseñas y ficha) y termina con el estado "AMAZON BLOQUEADO". La próxima ejecución parte de ese archivo si tiene menos de 3 días.
    - **Si hay 4 productos buenos y no aparece un quinto,** cambia el tope de precio del título (de 30 a 40 €) o el enfoque ("auriculares de diadema" en vez de "inalámbricos") usando los candidatos que ya tienes, antes de pedir más páginas.
    **El precio se toma de las listas**: la ficha individual no lo muestra.
@@ -28,7 +29,7 @@ Desde la nube de Claude, Amazon bloquea las consultas. Por eso se usa `mcp__Comp
    - **Antes de elegir,** haz la lista de los ASIN de todos los `episodios/*.json` (de cualquier estado) y descártalos.
 3. Pide `ficha(asin)` de los 8-10 mejores candidatos. Hazlo de uno en uno, porque el lector ya mete pausas, y en celdas de máximo 4 fichas por el límite de 180 s.
 4. **Reglas para entrar en el Top 5:**
-   - `vendido_por_amazon` es true (o al menos `enviado_por_amazon`);
+   - aparece con precio en una lista de Amazon (más vendidos o búsqueda);
    - rating ≥ 4,2 y ≥ 300 reseñas (≥ 150 si es un modelo de 2026);
    - **marca conocida** con web oficial;
    - precio de la lista **por debajo del tope** del título, con margen (no algo de 49,90 en un "menos de 50€");
