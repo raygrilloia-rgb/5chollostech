@@ -1,0 +1,106 @@
+{
+  "slug": "2026-10-22_powerbanks-menos-30",
+  "estado": "cola",
+  "fecha_datos": "21/10/2026",
+  "titulo_web": "5 power banks por menos de 30€",
+  "portada": {
+    "etiqueta": "TOP 5 · AMAZON ESPAÑA",
+    "linea1": "5 POWER BANKS",
+    "linea2": "POR MENOS DE",
+    "precio": "30€",
+    "sub": "nunca más sin batería"
+  },
+  "productos": [
+    {
+      "puesto": 5,
+      "asin": "B0D9YTNKGP",
+      "categoria": "POWER BANK",
+      "nombre": "Xiaomi Power Bank 10.000 mAh",
+      "ventajas": [
+        "Cable USB-C integrado",
+        "Carga rápida de 22,5W",
+        "Carga 3 dispositivos a la vez"
+      ],
+      "rating": "4,4",
+      "resenas": "1.286",
+      "foto": "fotos/powerbanks/xiaomi_10000.png"
+    },
+    {
+      "puesto": 4,
+      "asin": "B0D8KH4LNB",
+      "categoria": "POWER BANK 20.000 mAh",
+      "nombre": "CUKTECH CP25 20.000 mAh",
+      "ventajas": [
+        "El doble de capacidad",
+        "Carga rápida de hasta 45W",
+        "Cable USB-C integrado"
+      ],
+      "rating": "4,6",
+      "resenas": "4.545",
+      "foto": "fotos/powerbanks/cuktech_cp25.jpg",
+      "reel_tarjeta": true
+    },
+    {
+      "puesto": 3,
+      "asin": "B0C6XK77HJ",
+      "categoria": "POWER BANK MINI",
+      "nombre": "Anker Nano 5.000 mAh",
+      "ventajas": [
+        "Conector USB-C plegable",
+        "Carga rápida de 22,5W",
+        "Cabe en cualquier bolsillo"
+      ],
+      "rating": "4,4",
+      "resenas": "16.103",
+      "foto": "fotos/powerbanks/anker_nano5000.png"
+    },
+    {
+      "puesto": 2,
+      "asin": "B0CH33F5P2",
+      "categoria": "POWER BANK MAGSAFE",
+      "nombre": "UGREEN Zapix MagSafe",
+      "ventajas": [
+        "Se pega al iPhone con imanes",
+        "Carga inalámbrica y USB-C 20W",
+        "10.000 mAh en formato fino"
+      ],
+      "rating": "4,5",
+      "resenas": "19.307",
+      "foto": "fotos/powerbanks/ugreen_zapix.png"
+    },
+    {
+      "puesto": 1,
+      "asin": "B07PNL5STG",
+      "categoria": "POWER BANK",
+      "nombre": "INIU Slim 10.000 mAh",
+      "ventajas": [
+        "Solo 1,5 cm de grosor",
+        "Entrada y salida USB-C",
+        "Carga rápida de 3A"
+      ],
+      "rating": "4,5",
+      "resenas": "70.694",
+      "foto": "fotos/powerbanks/iniu_b41.jpg"
+    }
+  ],
+  "cierre": {
+    "pregunta": "¿CUÁL TE LLEVAS?",
+    "cta": "Comenta del 1 al 5"
+  },
+  "caption": "5 power banks de Amazon por menos de 30€ 🔋🔥\n\nPara no quedarte nunca sin batería: todos son de marcas conocidas, están entre los más vendidos y tienen buenas valoraciones.\n\n5️⃣ Xiaomi 10.000 mAh: cable integrado y por unos 17€\n4️⃣ CUKTECH CP25: 20.000 mAh y carga de hasta 45W\n3️⃣ Anker Nano: el mini con conector plegable, sin cables\n2️⃣ UGREEN Zapix: se pega al iPhone con imanes (MagSafe)\n1️⃣ INIU Slim: solo 1,5 cm de grosor y más de 70.000 reseñas\n\n¿Cuál necesitas tú? Comenta el número 👇\n💾 Guárdalo para tu próximo viaje.\n\n🔗 Todos los enlaces en la bio.\n\nPrecios y reseñas consultados el 21/10/2026: pueden cambiar.\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#powerbank #bateriaexterna #chollos #tecnologia #amazonespaña #gadgets",
+  "reel_caption": "5 power banks por menos de 30€ 🔋 ¿Cuál necesitas tú? Coméntalo 👇\n\n🔗 Enlaces en la bio · todos los detalles en el carrusel del perfil.\n\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#powerbank #chollos #tecnologia #amazonespaña #gadgets",
+  "guion": {
+    "gancho": "¿Siempre te quedas sin batería?",
+    "gancho_texto": "¿Siempre te quedas sin batería?",
+    "intro": "Cinco power banks de Amazon… ¡todos por menos de treinta euros!",
+    "productos": {
+      "1": "Y el número uno… ¡INIU Slim! Finísimo, y con más de setenta mil reseñas.",
+      "2": "Número dos: UGREEN Zapix. Se pega al iPhone con imanes, y carga sin cables.",
+      "3": "Número tres: Anker Nano. Diminuto, y se enchufa directo al móvil.",
+      "4": "Número cuatro: CUKTECH de veinte mil. El doble de batería, y carga rápida.",
+      "5": "Número cinco: Xiaomi diez mil. Con el cable incluido, y por unos diecisiete euros."
+    },
+    "cierre": "¿Cuál necesitas tú? Coméntalo. Los enlaces, en mi bio."
+  },
+  "reel_estilo": "flotante"
+}

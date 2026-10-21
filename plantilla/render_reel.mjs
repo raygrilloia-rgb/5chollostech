@@ -86,7 +86,8 @@ const fotos = new Map();
 const FLOTANTE = (EP.reel_estilo || 'flotante') === 'flotante';
 for (const p of EP.productos) {
   const foto = FLOTANTE ? (p.foto_reel || p.foto) : p.foto;
-  fotos.set(p.puesto, await cargarFoto(path.resolve(RAIZ, foto), FLOTANTE ? { transparente: true } : { recortar: p.ajuste !== 'cover' }));
+  // "reel_tarjeta": true en un producto = ese producto va en tarjeta blanca aunque el reel sea flotante (fotos blancas sobre fondo blanco)
+  fotos.set(p.puesto, await cargarFoto(path.resolve(RAIZ, foto), FLOTANTE && !p.reel_tarjeta ? { transparente: true } : { recortar: p.ajuste !== 'cover' }));
 }
 const emo = {};
 for (const n of ['2b50', '1f525', '1f447', '2705', '1f3c6']) emo[n] = await loadImage(path.join(RAIZ, 'emoji', `emoji_u${n}.png`));
@@ -178,7 +179,7 @@ function producto(ctx, b, lt, tGlobal) {
     ctx.fillStyle = C.blanco; ctx.font = `${activo ? 30 : 22}px ABK`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(q.puesto), x, y + 2);
   });
   const e = easeOut(prog(lt, 0, 0.35)), cw = 820, ch = 780, cx = (W - cw) / 2 + (FLOTANTE ? 0 : (1 - e) * 700), cy = 380;
-  if (FLOTANTE) {
+  if (FLOTANTE && !p.reel_tarjeta) {
     // producto en PNG flotando: halo de luz que gira, sombra en el suelo, balanceo suave y destellos
     const mx = W / 2, my = cy + ch / 2, pop = easeBack(prog(lt, 0, 0.45));
     ctx.save(); ctx.globalAlpha = e;
