@@ -31,7 +31,10 @@ Se ejecuta **una vez al día a las 11:00 UTC** (13:00 en la península en verano
 7. `INSTAGRAM_GET_IG_MEDIA` (`fields: "id,permalink"`) para obtener el permalink.
 8. Registra el Reel:
    - en el JSON del episodio: `"reel_instagram": "<permalink>"` y `"reel_publicado_utc": "<ISO>"`. **No cambies** `estado`: de eso se encarga la rutina del carrusel;
-   - en `publicados.md`: la fila `| AAAA-MM-DD HH:MM | <slug> (REEL) | <categoría> | <permalink> | <url web> |`.
+   - en `publicados.md`: la fila `| AAAA-MM-DD HH:MM | <slug> (REEL) | <categoría> | <permalink> | <url web> |`;
+   - **la web, ya en este momento** (el Reel dice "enlaces en la bio", así que la página tiene que verse desde ya):
+     - añade el slug a `publicados.json` y a `docs/publicados.json` (esta última es una lista JSON en una línea), si no está ya;
+     - en `docs/sitemap.xml`, añade `<url><loc>https://raygrilloia-rgb.github.io/5chollostech/top/<slug>/</loc></url>` antes de `</urlset>`, si no está ya.
 9. Haz commit con el mensaje `Reel <slug>` y `git push` a `main`.
 
 ## Informe final (breve)

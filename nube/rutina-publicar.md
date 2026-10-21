@@ -34,8 +34,8 @@ La rutina se ejecuta **una vez al día** (18:00 UTC: 20:00 en la España peninsu
 
 ## 4. Registrar y actualizar la web
 1. En `episodios/<slug>.json`: `"estado": "publicado"`, `"publicado_utc": "<fecha y hora ISO>"`, `"instagram": "<permalink>"`.
-2. Añade el slug al final de `publicados.json` **y** de `docs/publicados.json`. Los dos son listas JSON, y `docs/publicados.json` va en una sola línea.
-3. En `docs/sitemap.xml`, añade `<url><loc>https://raygrilloia-rgb.github.io/5chollostech/top/<slug>/</loc></url>` antes de `</urlset>`.
+2. Añade el slug al final de `publicados.json` **y** de `docs/publicados.json`, **si no está ya**: la rutina del Reel lo añade a mediodía. Los dos son listas JSON, y `docs/publicados.json` va en una sola línea.
+3. En `docs/sitemap.xml`, añade `<url><loc>https://raygrilloia-rgb.github.io/5chollostech/top/<slug>/</loc></url>` antes de `</urlset>`, si no está ya.
 4. En `publicados.md`, añade la fila `| AAAA-MM-DD HH:MM | <slug> | <categoría> | <permalink> | <url web> |`.
 5. Haz commit con el mensaje `Publicado <slug>` y `git push` a `main`.
 
