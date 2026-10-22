@@ -1,6 +1,6 @@
 {
   "slug": "2026-10-22_powerbanks-menos-30",
-  "estado": "cola",
+  "estado": "publicado",
   "fecha_datos": "21/10/2026",
   "titulo_web": "5 power banks por menos de 30€",
   "portada": {
@@ -104,5 +104,7 @@
   },
   "reel_estilo": "flotante",
   "reel_instagram": "https://www.instagram.com/reel/Dey3hQjjyOZ/",
-  "reel_publicado_utc": "2026-10-22T11:24:22.660Z"
+  "reel_publicado_utc": "2026-10-22T11:24:22.660Z",
+  "publicado_utc": "2026-10-22T18:12:19Z",
+  "instagram": "https://www.instagram.com/p/DezmRhQnUWX/"
 }
