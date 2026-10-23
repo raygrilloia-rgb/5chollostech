@@ -1,0 +1,106 @@
+{
+  "slug": "2026-10-24_altavoces-menos-60",
+  "estado": "cola",
+  "fecha_datos": "23/10/2026",
+  "titulo_web": "5 altavoces Bluetooth por menos de 60€",
+  "portada": {
+    "etiqueta": "TOP 5 · AMAZON ESPAÑA",
+    "linea1": "5 ALTAVOCES",
+    "linea2": "POR MENOS DE",
+    "precio": "60€",
+    "sub": "música en cualquier sitio"
+  },
+  "productos": [
+    {
+      "puesto": 5,
+      "asin": "B08BCHKY52",
+      "categoria": "ALTAVOZ",
+      "nombre": "Soundcore 3 de Anker",
+      "ventajas": [
+        "24 h de reproducción",
+        "Resistente al agua (IPX7)",
+        "Ecualizador en la app"
+      ],
+      "rating": "4,6",
+      "resenas": "15.449",
+      "foto": "fotos/altavoces/soundcore3_negro.jpg",
+      "reel_tarjeta": true
+    },
+    {
+      "puesto": 4,
+      "asin": "B0GPPRPRM5",
+      "categoria": "ALTAVOZ MINI",
+      "nombre": "JBL Go 5",
+      "ventajas": [
+        "Cabe en la palma de la mano",
+        "IP68 y resistente a caídas",
+        "Luz ambiental en el borde"
+      ],
+      "rating": "4,7",
+      "resenas": "1.581",
+      "foto": "fotos/altavoces/jbl_go5_negro.png"
+    },
+    {
+      "puesto": 3,
+      "asin": "B0DB1753RZ",
+      "categoria": "ALTAVOZ MINI",
+      "nombre": "Soundcore Select 4 Go",
+      "ventajas": [
+        "Hasta 20 h de reproducción",
+        "Resistente al agua (IP67) y flota",
+        "Estéreo con dos altavoces"
+      ],
+      "rating": "4,7",
+      "resenas": "14.125",
+      "foto": "fotos/altavoces/soundcore_select4go_negro.png"
+    },
+    {
+      "puesto": 2,
+      "asin": "B0CX93RKQX",
+      "categoria": "ALTAVOZ CON MOSQUETÓN",
+      "nombre": "JBL Clip 5",
+      "ventajas": [
+        "Mosquetón para colgarlo",
+        "Resistente al agua y polvo (IP67)",
+        "Hasta 12 h de batería"
+      ],
+      "rating": "4,7",
+      "resenas": "6.156",
+      "foto": "fotos/altavoces/jbl_clip5_azul.png"
+    },
+    {
+      "puesto": 1,
+      "asin": "B01MTB55WH",
+      "categoria": "ALTAVOZ",
+      "nombre": "Soundcore 2 de Anker",
+      "ventajas": [
+        "Más de 20 h de batería",
+        "Resistente al agua (IPX7)",
+        "Graves potentes con BassUp"
+      ],
+      "rating": "4,6",
+      "resenas": "156.614",
+      "foto": "fotos/altavoces/soundcore2_negro.png"
+    }
+  ],
+  "cierre": {
+    "pregunta": "¿CUÁL TE LLEVAS?",
+    "cta": "Comenta del 1 al 5"
+  },
+  "caption": "5 altavoces Bluetooth de Amazon por menos de 60€ 🔊🔥\n\nPara la playa, la ducha o la terraza: todos son de marcas conocidas, están entre los más vendidos y tienen buenas valoraciones.\n\n5️⃣ Soundcore 3: 24 h de batería y ecualizador en la app\n4️⃣ JBL Go 5: pequeño como la palma de tu mano\n3️⃣ Soundcore Select 4 Go: mini, flota y aguanta 20 h\n2️⃣ JBL Clip 5: con mosquetón para colgarlo donde quieras\n1️⃣ Soundcore 2: más de 20 h de batería y más de 150.000 reseñas\n\n¿Cuál te llevas tú? Comenta el número 👇\n💾 Guárdalo para tu próxima escapada.\n\n🔗 Todos los enlaces en la bio.\n\nPrecios y reseñas consultados el 23/10/2026: pueden cambiar.\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#altavozbluetooth #altavoces #chollos #tecnologia #amazonespaña #gadgets",
+  "reel_caption": "5 altavoces Bluetooth por menos de 60€ 🔊 ¿Cuál te llevas? Coméntalo 👇\n\n🔗 Enlaces en la bio · todos los detalles en el carrusel del perfil.\n\nComo afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. #enlacesdeafiliado\n\n#altavozbluetooth #chollos #tecnologia #amazonespaña #gadgets",
+  "guion": {
+    "gancho": "¿Buscas un altavoz que suene de verdad?",
+    "gancho_texto": "¿Buscas un altavoz que suene de verdad?",
+    "intro": "Cinco altavoces Bluetooth de Amazon… ¡todos por menos de sesenta euros!",
+    "productos": {
+      "1": "Y el número uno… ¡Soundcore dos! Más de ciento cincuenta mil reseñas, y veinte horas de batería.",
+      "2": "Número dos: JBL Clip cinco. Lleva mosquetón, y aguanta agua y polvo.",
+      "3": "Número tres: Soundcore Select cuatro Go. Mini, flota en el agua, y aguanta veinte horas.",
+      "4": "Número cuatro: JBL Go cinco. Cabe en la palma de la mano.",
+      "5": "Número cinco: Soundcore tres. Veinticuatro horas de batería, y ecualizador en la app."
+    },
+    "cierre": "¿Cuál te llevas? Coméntalo. Los enlaces, en mi bio."
+  },
+  "reel_estilo": "flotante"
+}
