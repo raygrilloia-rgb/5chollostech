@@ -9,3 +9,4 @@
 | 2026-10-22 11:24 | 2026-10-22_powerbanks-menos-30 (REEL) | power banks | https://www.instagram.com/reel/Dey3hQjjyOZ/ | https://raygrilloia-rgb.github.io/5chollostech/top/2026-10-22_powerbanks-menos-30/ |
 | 2026-10-22 18:12 | 2026-10-22_powerbanks-menos-30 | power banks | https://www.instagram.com/p/DezmRhQnUWX/ | https://raygrilloia-rgb.github.io/5chollostech/top/2026-10-22_powerbanks-menos-30/ |
 | 2026-10-23 11:19 | 2026-10-24_altavoces-menos-60 (REEL) | altavoces | https://www.instagram.com/reel/De1bvu7j7of/ | https://raygrilloia-rgb.github.io/5chollostech/top/2026-10-24_altavoces-menos-60/ |
+| 2026-10-23 18:11 | 2026-10-24_altavoces-menos-60 | altavoces | https://www.instagram.com/p/De2K8u-nbyU/ | https://raygrilloia-rgb.github.io/5chollostech/top/2026-10-24_altavoces-menos-60/ |

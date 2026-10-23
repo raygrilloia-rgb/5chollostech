@@ -1,6 +1,6 @@
 {
   "slug": "2026-10-24_altavoces-menos-60",
-  "estado": "cola",
+  "estado": "publicado",
   "fecha_datos": "23/10/2026",
   "titulo_web": "5 altavoces Bluetooth por menos de 60€",
   "portada": {
@@ -104,5 +104,7 @@
   },
   "reel_estilo": "flotante",
   "reel_instagram": "https://www.instagram.com/reel/De1bvu7j7of/",
-  "reel_publicado_utc": "2026-10-23T11:19:22.545Z"
+  "reel_publicado_utc": "2026-10-23T11:19:22.545Z",
+  "publicado_utc": "2026-10-23T18:11:17Z",
+  "instagram": "https://www.instagram.com/p/De2K8u-nbyU/"
 }
